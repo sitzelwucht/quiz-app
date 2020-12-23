@@ -98,6 +98,27 @@ input[type="radio"]:checked + label {
     color: rgb(63, 63, 63);
 }
 
+#send {
+    cursor: pointer;
+    margin: 1.6em;
+    border: 1px solid grey;
+    padding: .5em;
+    width: 100px;
+}
+
+#send:hover {
+    background-color: black;
+    color: white;
+}
+
 .hidden {
     display: none
+}
+
+.correct {
+    background-color: rgb(184, 228, 184)!important;
+}
+
+.incorrect {
+    background-color: rgb(228, 184, 184)!important;
 }

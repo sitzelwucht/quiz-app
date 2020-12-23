@@ -18,6 +18,10 @@
             <option value="general">General Knowledge</option>
             <option value="movies">Movies</option>
             <option value="science">Science & nature</option>
+            <option value="animals">Animals</option>
+            <option value="geography">Geography</option>
+            <option value="computers">Computers</option>
+
         </select>
         <button id="startBtn">start</button>
     </div>
@@ -27,19 +31,26 @@
         <div id="question"></div>
         <div id="options">
             <form>
-                <input type="radio" id="option1" name="response" value="option1">
-                <label for="option1" id="opt1" class="options">[option 1]</label><br>
 
-                <input type="radio"  id="option2" name="response" value="option2">
-                <label for="option2" id="opt2" class="options">[option 2]</label><br>
+                <!-- this is what you check -->
+                <input type="radio" name="response" class="responses" id="option1" value="option1"> 
+                <!-- this is the string value -->
+                <label for="option1" class="options">[option 1]</label><br>
 
-                <input type="radio"  id="option3" name="response" value="option3">
-                <label for="option3" id="opt3" class="options">[option 3]</label><br>
 
-                <input type="radio"  id="option4" name="response" value="option4">
-                <label for="option4" id="opt4" class="options">[option 4]</label>
+                <input type="radio" name="response" class="responses" id="option2" value="option2">
+                <label for="option2" class="options">[option 2]</label><br>
 
-                <div><input type="submit" value="Submit"></div>
+
+                <input type="radio" name="response" class="responses" id="option3" value="option3">
+                <label for="option3" class="options">[option 3]</label><br>
+
+
+                <input type="radio" name="response" class="responses" id="option4" value="option4">
+                <label for="option4" class="options">[option 4]</label>
+
+                <!-- <button type="submit" value="Submit" id="submitBtn">Submit</button> -->
+                <div id="send">Submit</div>
               </form>
 
         </div>
