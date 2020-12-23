@@ -26,7 +26,8 @@ const television = '14&type=multiple'
 
 topicSelector.addEventListener('click', () => {
 
-    scoreDiv.classList.remove('highlighted')
+    scoreDiv.classList.remove('highlighted', 'hidden')
+    submitBtn.classList.remove('inactive')
     score = 0
     clearResponse()
     getData()
