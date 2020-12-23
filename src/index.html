@@ -8,57 +8,65 @@
 </head>
 <body>
     <header><h1>QUIZ</h1></header>
+
 <div id="wrapper">
-    <div><img src="images/idea.svg" height="400"> </div>
-   
-   <div>
-        <div id="topic-form"><label for="topics" id="choose">Choose a topic:</label>
 
-        <select name="topics" id="topics">
-            <option value="general">General Knowledge</option>
-            <option value="movies">Movies</option>
-            <option value="science">Science & nature</option>
-            <option value="animals">Animals</option>
-            <option value="geography">Geography</option>
-            <option value="computers">Computers</option>
+    <div id="subwrapper">
 
-        </select>
-        <button id="startBtn">start</button>
-    </div>
-    </div> 
-    <div id="question-div">
-  
-        <div id="question"></div>
-        <div id="options">
-            <form>
+        <div id="left">
+            <div id="image-div">
+                <img src="images/idea.svg" height="300">
+            </div>
 
-                <!-- this is what you check -->
-                <input type="radio" name="response" class="responses" id="option1" value="option1"> 
-                <!-- this is the string value -->
-                <label for="option1" class="options">[option 1]</label><br>
+            <div id="topic-form">
 
+                <select name="topics" id="topics">
+                    <option value="" selected disabled hidden>Choose topic</option>
+                    <option value="general">General Knowledge</option>
+                    <option value="movies">Movies</option>
+                    <option value="science">Science & nature</option>
+                    <option value="animals">Animals</option>
+                    <option value="geography">Geography</option>
+                    <option value="computers">Computers</option>
+                    <option value="videogames">Video Games</option>
+                    <option value="television">Television</option>
 
-                <input type="radio" name="response" class="responses" id="option2" value="option2">
-                <label for="option2" class="options">[option 2]</label><br>
-
-
-                <input type="radio" name="response" class="responses" id="option3" value="option3">
-                <label for="option3" class="options">[option 3]</label><br>
-
-
-                <input type="radio" name="response" class="responses" id="option4" value="option4">
-                <label for="option4" class="options">[option 4]</label>
-
-                <!-- <button type="submit" value="Submit" id="submitBtn">Submit</button> -->
-                <div id="send">Submit</div>
-              </form>
-
+                </select>
+      
+            </div> 
         </div>
+    
+        <div id="right">
+        <div id="question-div">
+            <div id="q-number"></div>
+            <div id="question"></div>
+            <div id="options">
+                <form>
 
+                    <input type="radio" name="response" class="responses" id="option1" value="option1"> 
+                    <label for="option1" class="options">[option 1]</label><br>
+
+                    <input type="radio" name="response" class="responses" id="option2" value="option2">
+                    <label for="option2" class="options">[option 2]</label><br>
+
+                    <input type="radio" name="response" class="responses" id="option3" value="option3">
+                    <label for="option3" class="options">[option 3]</label><br>
+
+                    <input type="radio" name="response" class="responses" id="option4" value="option4">
+                    <label for="option4" class="options">[option 4]</label>
+
+                    <div id="right-bottom"><div id="send">Submit</div>
+                 
+                    <img src="images/right-arrow.svg" height="40" id="next" class="inactive"></div>
+                </form>
+
+            </div>
+            <div id="score">score</div>
 
       
+        </div>
     </div>
-    
+    </div>
 
 
 </div>

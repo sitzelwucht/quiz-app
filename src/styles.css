@@ -8,6 +8,7 @@ body {
     font-family: 'JetBrains Mono';
     font-weight: 100;
     background: black;
+    box-sizing: border-box;
 }
 
 header {
@@ -27,44 +28,90 @@ h1 {
     font-family: 'JetBrains Mono';
     font-weight: 300;
     font-size: 2em;
-    height: 50px;
-    margin: 2em 0
+    margin: 0;
+}
+
+#startBtn:hover {
+    filter: invert(66%) sepia(85%) saturate(2397%) hue-rotate(184deg) brightness(90%) contrast(91%);
+
 }
 
 #wrapper {
     margin: 6em auto;
     padding: 3em;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
     border: 1px rgb(20,20,20) solid;
     background: white
+}
+
+#subwrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+#left {
+    display: flex;
+    flex-direction: row;
+    width: 40%;
+    justify-content: space-around;
+    /* background-color: green; */
+}
+
+#right {
+    width: 40%;
+
+}
+#right-bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 180px;
+    margin: 1.6em auto;
+
+}
+
+#next {
+    margin: .1em;
+    cursor: pointer;
+}
+#image-div {
+    width: 45%;
+    margin: .2em;
+
 }
 
 #topic-form {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content:flex-start;
+    padding: 1.4em;
+    width: 35%;
 }
 
 select  {
     font-size: 1.3em;
-    font-family: monospace
+    font-family: monospace;
+    outline: none;
+    background-color: black;
+    color: white;
+    padding: .5em;
+    margin-top: .2em;
 }
+
 #question-div {
     display: flex;
     flex-direction: column;
-    width: 600px;
+    padding: 1.4em;
+    text-align: right;
 }
 
 #question {
     border: 1px solid rgb(109, 109, 109);
     font-size: 1.4em;
-    padding: 1.5em
+    padding: 1em
 }
-#choose {
-    border: none
-}
+
 input {
     font-size: 1.1em;
     font-family: 'JetBrains Mono';
@@ -100,10 +147,9 @@ input[type="radio"]:checked + label {
 
 #send {
     cursor: pointer;
-    margin: 1.6em;
     border: 1px solid grey;
     padding: .5em;
-    width: 100px;
+    text-align: center;
 }
 
 #send:hover {
@@ -121,4 +167,20 @@ input[type="radio"]:checked + label {
 
 .incorrect {
     background-color: rgb(228, 184, 184)!important;
+}
+
+.inactive {
+    filter: invert(98%) sepia(0%) saturate(5028%) hue-rotate(199deg) brightness(112%) contrast(73%);
+    pointer-events: none;
+}
+
+#score {
+    border: 1px grey solid;
+    width: 20%;
+    text-align:center
+}
+
+.highlighted {
+    background-color: rgb(194, 202, 148);
+    transform: scale(2);
 }
