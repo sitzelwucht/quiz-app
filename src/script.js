@@ -43,10 +43,6 @@ document.querySelector('#next').addEventListener('click', () => {
     getData()
 })
 
-function toggleButtons() {
-    document.querySelector('#next').classList.toggle('inactive')
-    document.querySelector('#send').classList.toggle('inactive')
-}
 
 function getQuestions() {
 
@@ -120,6 +116,7 @@ async function getData() {
                 optionsArray[i].innerHTML = shuffledOptions[i]
                 responseArray[i].value = shuffledOptions[i]
                 optionsArray[i].classList.remove('fade')
+                document.querySelector('#right-bottom').classList.remove('hidden')
             }
         }, 1600);
   
@@ -136,7 +133,16 @@ async function getData() {
 
 
 function checkResponse() {
-
+    count = 0
+   for (let i = 0; i < responseArray.length; i++) {
+       if (!responseArray[i].checked) {
+           count++
+           if (count === 4) {
+               alert('please select an answer')
+               return
+           }
+       }
+   }
     for (let i = 0; i < responseArray.length; i++) {
         if (responseArray[i].value === correctAnswer && responseArray[i].checked) {
             optionsArray[i].classList.add('correct')
@@ -150,7 +156,7 @@ function checkResponse() {
     round++
     toggleButtons()
 
-    if(round === 10) {
+    if (round === 10) {
         gameEnd()
     }
 
@@ -165,13 +171,18 @@ function clearResponse() {
         item.classList.remove('correct', 'incorrect')
     })
 
-
 }
 
 function shuffleArray(arr) {
     arr = arr.sort(() => Math.random() - 0.5)
     return arr
 }
+
+function toggleButtons() {
+    document.querySelector('#next').classList.toggle('inactive')
+    document.querySelector('#send').classList.toggle('inactive')
+}
+
 
 function gameEnd() {
     nextBtn.classList.add('inactive')
