@@ -46,7 +46,7 @@ h1 {
 #subwrapper {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 
@@ -67,7 +67,7 @@ h1 {
     flex-direction: row;
     justify-content: space-between;
     width: 180px;
-    margin: 1.6em auto;
+    margin: 1.6em 3.5em 1.6em 1em;
 
 }
 
@@ -108,8 +108,9 @@ select  {
 
 #question {
     border: 1px solid rgb(109, 109, 109);
-    font-size: 1.4em;
-    padding: 1em
+    font-size: 1.2em;
+    padding: 1em;
+    transition: all .7s ease-in-out;
 }
 
 input {
@@ -145,6 +146,11 @@ input[type="radio"]:checked + label {
     color: rgb(63, 63, 63);
 }
 
+
+.options {
+    transition: opacity .8s ease-in-out;
+}
+
 #send {
     cursor: pointer;
     border: 1px solid grey;
@@ -158,7 +164,7 @@ input[type="radio"]:checked + label {
 }
 
 .hidden {
-    display: none
+    display: none!important;
 }
 
 .correct {
@@ -176,11 +182,16 @@ input[type="radio"]:checked + label {
 
 #score {
     border: 1px grey solid;
-    width: 20%;
-    text-align:center
+    width: 65%;
+    text-align:center;
+    margin: auto
 }
 
 .highlighted {
-    background-color: rgb(194, 202, 148);
+    background-color: rgb(193, 219, 236);
     transform: scale(2);
+}
+
+.fade {
+    opacity: 0
 }

@@ -2,26 +2,32 @@
 const q = document.querySelector('#question')
 const optionsArray = document.querySelectorAll('.options')
 const responseArray = document.querySelectorAll('.responses')
-const btn = document.querySelector('#startBtn')
 const topicSelector = document.querySelector('#topics')
+const nextBtn  = document.querySelector('#next')
+const submitBtn = document.querySelector('#send')
+const scoreDiv = document.querySelector('#score')
 
 let correctAnswer;
 let score = 0
 let round = 0
 let mode;
+let difficulty;
 
 const baseUrl = 'https://opentdb.com/api.php?amount=10&category='
-const urlGeneral = '9&type=multiple'
-const urlMovies = '11&type=multiple'
-const urlScience = '17&type=multiple'
-const urlAnimals = '27&type=multiple'
-const urlGeography = '22&type=multiple'
-const urlComputers = '18&type=multiple'
-const urlVideogames = '15&type=multiple'
-const urlTelevision = '14&type=multiple'
+const general = '9&type=multiple'
+const movies = '11&type=multiple'
+const science = '17&type=multiple'
+const animals = '27&type=multiple'
+const geography = '22&type=multiple'
+const computers = '18&type=multiple'
+const videogames = '15&type=multiple'
+const television = '14&type=multiple'
 
 
 topicSelector.addEventListener('click', () => {
+
+    scoreDiv.classList.remove('highlighted')
+    score = 0
     clearResponse()
     getData()
 })
@@ -31,72 +37,56 @@ document.querySelector('#send').addEventListener('click', () => {
 
 })
 document.querySelector('#next').addEventListener('click', () => {
-    document.querySelector('#next').classList.add('inactive')
-    document.querySelector('#send').classList.remove('inactive')
+    toggleButtons()
     clearResponse()
     getData()
 })
 
+function toggleButtons() {
+    document.querySelector('#next').classList.toggle('inactive')
+    document.querySelector('#send').classList.toggle('inactive')
+}
+
 function getQuestions() {
 
     if (round === 0) {
-        if (topicSelector.value === 'general') {
-            mode = 'general'
-        }
-        else if (topicSelector.value === 'movies') {
-            mode = 'movies'
-        }
-        else if (topicSelector.value === 'science')  {
-            mode = 'science'
-        }         
-        else if (topicSelector.value === 'animals') {
-            mode = 'animals'
-        }  
-        else if (topicSelector.value === 'geography') {
-            mode = 'geography' 
-        }    
-        else if (topicSelector.value === 'computers') {
-            mode = 'computers'
-        }
-        else if (topicSelector.value === 'videogames') {
-            mode = 'videogames'
-        }
-        else if (topicSelector.value === 'television') {
-            mode = 'television'
-        }
+       mode = topicSelector.value
     }
 
-        if (mode === 'general') {
-            return `${baseUrl}${urlGeneral}`
-        }
-        else if (mode === 'movies') {
-            return `${baseUrl}${urlMovies}`
-        }
-        else if (mode === 'science') {
-            return `${baseUrl}${urlScience}`
-        }
-        else if (mode === 'animals') {
-            return `${baseUrl}${urlAnimals}`
-            }
-        else if (mode === 'geography') {
-            return `${baseUrl}${urlGeography}`
-        }
-        else if (mode === 'computers') {
-            return `${baseUrl}${urlComputers}`
-        }
-        else if (mode === 'videogames') {
-            return `${baseUrl}${urlVideogames}`
-        }
-        else if (mode === 'television') {
-            return `${baseUrl}${urlTelevision}`
-        }
-
-
+    if (mode === 'general') {
+        return `${baseUrl}${general}`
+    }
+    else if (mode === 'movies') {
+        return `${baseUrl}${movies}`
+    }
+    else if (mode === 'science') {
+        return `${baseUrl}${science}`
+    }
+    else if (mode === 'animals') {
+        return `${baseUrl}${animals}`
+    }
+    else if (mode === 'geography') {
+        return `${baseUrl}${geography}`
+    }
+    else if (mode === 'computers') {
+        return `${baseUrl}${computers}`
+    }
+    else if (mode === 'videogames') {
+        return `${baseUrl}${videogames}`
+    }
+    else if (mode === 'television') {
+        return `${baseUrl}${television}`
+    }
+ 
 }
 
 
 async function getData() {
     document.querySelector('#question-div').classList.remove('hidden')
+    q.classList.add('fade')
+    Array.prototype.filter.call(optionsArray, (item) => {
+        item.classList.add('fade')
+    })
 
     const  response = await fetch(getQuestions())
   
@@ -114,27 +104,34 @@ async function getData() {
             difficulty: data.results[round].difficulty
         }
 
-        q.innerHTML = dataObj.question
+        setTimeout(() => {
+            q.innerHTML = dataObj.question
+            q.classList.remove('fade')
+        }, 800);
+        
 
         let optionsData = [ dataObj.options[0], dataObj.options[1], dataObj.options[2], dataObj.options[3] ]
+        difficulty = dataObj.difficulty
         let shuffledOptions = shuffleArray(optionsData)
-        for (let i = 0; i < shuffledOptions.length; i++) {
-            optionsArray[i].innerHTML = shuffledOptions[i]
-            responseArray[i].value = shuffledOptions[i]
-        }
+
+        setTimeout(() => {
+            for (let i = 0; i < shuffledOptions.length; i++) {
+                optionsArray[i].innerHTML = shuffledOptions[i]
+                responseArray[i].value = shuffledOptions[i]
+                optionsArray[i].classList.remove('fade')
+            }
+        }, 1600);
+  
         
         correctAnswer = dataObj.options[0]
         document.querySelector('#q-number').innerHTML = `Question ${round+1}`
-        document.querySelector('#score').innerHTML =  `Score: ${score} / 10`
-
+        scoreDiv.innerHTML =  `Score: ${score} / 10`
 
     }
     catch (err) {
         console.log(`Error: ${err}`)
     }
 }
-
-
 
 
 function checkResponse() {
@@ -147,15 +144,13 @@ function checkResponse() {
         else if  (responseArray[i].value !== correctAnswer && responseArray[i].checked) {
             optionsArray[i].classList.add('incorrect')
         }
-
     }
+
     round++
-    document.querySelector('#next').classList.remove('inactive')
-    document.querySelector('#send').classList.add('inactive')
+    toggleButtons()
+
     if(round === 10) {
-        document.querySelector('#next').classList.add('inactive')
-        document.querySelector('#send').classList.add('inactive')
-        document.querySelector('#score').classList.add('highlighted')
+        gameEnd()
     }
 
 }
@@ -169,9 +164,17 @@ function clearResponse() {
         item.classList.remove('correct', 'incorrect')
     })
 
+
 }
 
 function shuffleArray(arr) {
     arr = arr.sort(() => Math.random() - 0.5)
     return arr
+}
+
+function gameEnd() {
+    nextBtn.classList.add('inactive')
+    submitBtn.classList.add('inactive')
+    scoreDiv.classList.add('highlighted')
+    round = 0
 }
