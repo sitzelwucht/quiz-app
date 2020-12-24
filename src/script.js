@@ -11,7 +11,6 @@ let correctAnswer;
 let score = 0
 let round = 0
 let mode;
-let difficulty;
 
 const baseUrl = 'https://opentdb.com/api.php?amount=10&category='
 const general = '9&type=multiple'
@@ -22,13 +21,18 @@ const geography = '22&type=multiple'
 const computers = '18&type=multiple'
 const videogames = '15&type=multiple'
 const television = '14&type=multiple'
+const music = '12&type=multiple'
+const history = '23&type=multiple'
+
 
 
 topicSelector.addEventListener('click', () => {
-
+    
+    scoreDiv.innerHTML = ''
+    score = 0
     scoreDiv.classList.remove('highlighted', 'hidden')
     submitBtn.classList.remove('inactive')
-    score = 0
+  
     clearResponse()
     getData()
 })
@@ -74,7 +78,12 @@ function getQuestions() {
     else if (mode === 'television') {
         return `${baseUrl}${television}`
     }
- 
+    else if (mode === 'music') {
+        return `${baseUrl}${music}`
+    }
+    else if (mode === 'history') {
+        return `${baseUrl}${history}`
+    }
 }
 
 
@@ -108,7 +117,6 @@ async function getData() {
         
 
         let optionsData = [ dataObj.options[0], dataObj.options[1], dataObj.options[2], dataObj.options[3] ]
-        difficulty = dataObj.difficulty
         let shuffledOptions = shuffleArray(optionsData)
 
         setTimeout(() => {
@@ -123,7 +131,7 @@ async function getData() {
         
         correctAnswer = dataObj.options[0]
         document.querySelector('#q-number').innerHTML = `Question ${round+1}`
-        scoreDiv.innerHTML =  `Score: ${score} / 10`
+
 
     }
     catch (err) {
@@ -153,6 +161,7 @@ function checkResponse() {
         }
     }
 
+    scoreDiv.innerHTML =  `Score: ${score} / 10`
     round++
     toggleButtons()
 
