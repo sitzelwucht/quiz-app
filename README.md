@@ -1,11 +1,10 @@
 # Trivia Quiz App
 
-![quiz_screenshot](https://user-images.githubusercontent.com/61108220/103021454-6dfb1500-454a-11eb-8db8-aeb8ab50cee1.png)
-
+![quiz](https://user-images.githubusercontent.com/61108220/103477670-5c730200-4dc1-11eb-98b9-bbfab65c69b0.png)
 
 ## Purpose
 
-This small trivia game allows you to select an area of topics, where you will receive 10 multiple choice questions of varying degrees of difficulty.
+This small trivia game allows you to select an area of topics or randomized topics, select between 10 multiple choice or true/false questions, or both, of varying degrees of difficulty.
 With each correct response you get a point. The trivia is pulled from Open Trivia DataBase using their key-free API.
 
 ## Installation

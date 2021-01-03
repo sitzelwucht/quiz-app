@@ -15,7 +15,10 @@ let optionsData = []
 
 
 document.querySelector('#ok-btn').addEventListener('click', () => {
-    
+    if (document.querySelector('#topics').value == '' || document.querySelector('#type').value == '') {
+        alert('Please select topic and question type')
+        return
+    }
     scoreDiv.innerHTML = ''
     score = 0
     scoreDiv.classList.remove('highlighted', 'hidden')
@@ -37,13 +40,11 @@ document.querySelector('#next').addEventListener('click', () => {
 
 
 function getUrl() {
-    
     const baseUrl = `https://opentdb.com/api.php?amount=10`
     const cat = '&category='
     let id = ''
     const type = '&type='
     let qType = ''
-
 
     if (round === 0) {
        mode = document.querySelector('#topics').value
@@ -58,45 +59,31 @@ function getUrl() {
     else
         qType = ''
 
-
     // determine topic
-    if (mode === 'random') {
-        id = ''
-    }
-    else if (mode === 'general') {
+    if (mode === 'random') id = ''
+    else if (mode === 'general')
         id = '9'
-    }
-    else if (mode === 'movies') {
-        id = '11'
-    }   
-    else if (mode === 'science') {
+    else if (mode === 'movies')
+        id = '11' 
+    else if (mode === 'science') 
         id = '17'
-    }   
-    else if (mode === 'animals') {
+    else if (mode === 'animals') 
         id = '27'
-    }   
-    else if (mode === 'geography') {
+    else if (mode === 'geography') 
         id = '22'
-    }   
-    else if (mode === 'computers') {
+    else if (mode === 'computers') 
         id = '18'
-    }  
-    else if (mode === 'videogames') {
+    else if (mode === 'videogames') 
         id = '15'
-    }   
-    else if (mode === 'television') {
+    else if (mode === 'television') 
         id = '14'
-    }   
-    else if (mode === 'music') {
+    else if (mode === 'music') 
         id = '12'
-    }   
-    else if (mode === 'history') {
+    else if (mode === 'history') 
         id = '23'
-    }
-
+    
     return `${baseUrl}${cat}${id}${type}${qType}`
 }
-
 
 async function getData() {
     document.querySelector('#question-div').classList.remove('hidden')
@@ -112,7 +99,6 @@ async function getData() {
 
         // check if question is multiple choice
         if (data.results[round].incorrect_answers.length > 1) {
-
             dataObj = {
                 question: data.results[round].question,
                 options:  [
@@ -126,7 +112,6 @@ async function getData() {
             optionsData = [ dataObj.options[0], dataObj.options[1], dataObj.options[2], dataObj.options[3] ]
         }
         else {
-
             dataObj = {
                 question: data.results[round].question,
                 options:  [
@@ -143,8 +128,6 @@ async function getData() {
             q.classList.remove('fade')
         }, 800);
         
-
-       
         let shuffledOptions = shuffleArray(optionsData)
 
         setTimeout(() => {
@@ -156,10 +139,8 @@ async function getData() {
             }
         }, 1600);
   
-        
         correctAnswer = dataObj.options[0]
         document.querySelector('#q-number').innerHTML = `Question ${round+1}`
-
 
     }
     catch (err) {
@@ -167,10 +148,9 @@ async function getData() {
     }
 }
 
-
 function checkResponse() {
     count = 0
-   for (let i = 0; i < responseArray.length; i++) {
+    for (let i = 0; i < responseArray.length; i++) {
        if (!responseArray[i].checked) {
            count++
            if (count === 4) {
@@ -216,8 +196,11 @@ function shuffleArray(arr) {
 }
 
 function toggleButtons() {
-    document.querySelector('#next').classList.toggle('inactive')
-    document.querySelector('#send').classList.toggle('inactive')
+    setTimeout(() => {
+        document.querySelector('#next').classList.toggle('inactive')
+        document.querySelector('#send').classList.toggle('inactive')
+    }, 700);
+
 }
 
 
