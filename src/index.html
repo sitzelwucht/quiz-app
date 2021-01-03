@@ -19,21 +19,31 @@
             </div>
 
             <div id="topic-form">
+                <div id="select-options">
+                    <select name="topics" id="topics">
+                        <option value="" selected disabled hidden>Choose topic</option>
+                        <option value="random">Random</option>
+                        <option value="general">General Knowledge</option>
+                        <option value="movies">Movies</option>
+                        <option value="science">Science & Nature</option>
+                        <option value="animals">Animals</option>
+                        <option value="geography">Geography</option>
+                        <option value="computers">Computers</option>
+                        <option value="videogames">Video Games</option>
+                        <option value="television">Television</option>
+                        <option value="music">Music</option>
+                        <option value="history">History</option>
+                    </select>
 
-                <select name="topics" id="topics">
-                    <option value="" selected disabled hidden>Choose topic</option>
-                    <option value="general">General Knowledge</option>
-                    <option value="movies">Movies</option>
-                    <option value="science">Science & Nature</option>
-                    <option value="animals">Animals</option>
-                    <option value="geography">Geography</option>
-                    <option value="computers">Computers</option>
-                    <option value="videogames">Video Games</option>
-                    <option value="television">Television</option>
-                    <option value="music">Music</option>
-                    <option value="history">History</option>
+                    <select name="type" id="type">
+                        <option value="" selected disabled hidden>Choose question type</option>
+                        <option value="multiple">Multiple choice</option>
+                        <option value="boolean">True or false</option>
+                        <option value="any">Any</option>
+                    </select>
+                </div>
 
-                </select>
+                <button id="ok-btn">OK</button>
                 <div id="score" class="hidden"></div>
             </div> 
         </div>
@@ -44,8 +54,7 @@
                 <div id="q-number"></div>
                 <div id="question"></div>
                 <div id="options">
-                    <form>
-
+                    <form class="multiple-options">
                         <input type="radio" name="response" class="responses" id="option1" value="option1" required> 
                         <label for="option1" class="options"></label><br>
 
@@ -58,6 +67,8 @@
                         <input type="radio" name="response" class="responses" id="option4" value="option4">
                         <label for="option4" class="options"></label>
                     </form>
+
+ 
             </div>
             <div id="right-bottom" class="hidden">
                 <div id="send">Submit</div>

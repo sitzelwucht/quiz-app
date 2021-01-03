@@ -2,8 +2,6 @@
 const q = document.querySelector('#question')
 const optionsArray = document.querySelectorAll('.options')
 const responseArray = document.querySelectorAll('.responses')
-const topicSelector = document.querySelector('#topics')
-const nextBtn  = document.querySelector('#next')
 const submitBtn = document.querySelector('#send')
 const scoreDiv = document.querySelector('#score')
 
@@ -11,22 +9,12 @@ let correctAnswer;
 let score = 0
 let round = 0
 let mode;
-
-const baseUrl = 'https://opentdb.com/api.php?amount=10&category='
-const general = '9&type=multiple'
-const movies = '11&type=multiple'
-const science = '17&type=multiple'
-const animals = '27&type=multiple'
-const geography = '22&type=multiple'
-const computers = '18&type=multiple'
-const videogames = '15&type=multiple'
-const television = '14&type=multiple'
-const music = '12&type=multiple'
-const history = '23&type=multiple'
+let questionType;
+let dataObj = {}
+let optionsData = []
 
 
-
-topicSelector.addEventListener('click', () => {
+document.querySelector('#ok-btn').addEventListener('click', () => {
     
     scoreDiv.innerHTML = ''
     score = 0
@@ -48,42 +36,65 @@ document.querySelector('#next').addEventListener('click', () => {
 })
 
 
-function getQuestions() {
+function getUrl() {
+    
+    const baseUrl = `https://opentdb.com/api.php?amount=10`
+    const cat = '&category='
+    let id = ''
+    const type = '&type='
+    let qType = ''
+
 
     if (round === 0) {
-       mode = topicSelector.value
+       mode = document.querySelector('#topics').value
+       questionType = document.querySelector('#type').value
     }
+    
+    // determine question type
+    if (questionType === 'boolean')
+        qType = 'boolean'
+    else if (questionType === 'multiple')
+        qType = 'multiple'
+    else
+        qType = ''
 
-    if (mode === 'general') {
-        return `${baseUrl}${general}`
+
+    // determine topic
+    if (mode === 'random') {
+        id = ''
+    }
+    else if (mode === 'general') {
+        id = '9'
     }
     else if (mode === 'movies') {
-        return `${baseUrl}${movies}`
-    }
+        id = '11'
+    }   
     else if (mode === 'science') {
-        return `${baseUrl}${science}`
-    }
+        id = '17'
+    }   
     else if (mode === 'animals') {
-        return `${baseUrl}${animals}`
-    }
+        id = '27'
+    }   
     else if (mode === 'geography') {
-        return `${baseUrl}${geography}`
-    }
+        id = '22'
+    }   
     else if (mode === 'computers') {
-        return `${baseUrl}${computers}`
-    }
+        id = '18'
+    }  
     else if (mode === 'videogames') {
-        return `${baseUrl}${videogames}`
-    }
+        id = '15'
+    }   
     else if (mode === 'television') {
-        return `${baseUrl}${television}`
-    }
+        id = '14'
+    }   
     else if (mode === 'music') {
-        return `${baseUrl}${music}`
-    }
+        id = '12'
+    }   
     else if (mode === 'history') {
-        return `${baseUrl}${history}`
+        id = '23'
     }
+
+    return `${baseUrl}${cat}${id}${type}${qType}`
 }
 
 
@@ -94,20 +105,37 @@ async function getData() {
         item.classList.add('fade')
     })
 
-    const  response = await fetch(getQuestions())
-  
+    const response = await fetch(getUrl())
+    
     try {
         const data = await response.json()
-       
-        let dataObj = {
-            question: data.results[round].question,
-            options:  [
-                data.results[round].correct_answer,
-                data.results[round].incorrect_answers[0],
-                data.results[round].incorrect_answers[1],
-                data.results[round].incorrect_answers[2],
-            ],
-            difficulty: data.results[round].difficulty
+
+        // check if question is multiple choice
+        if (data.results[round].incorrect_answers.length > 1) {
+
+            dataObj = {
+                question: data.results[round].question,
+                options:  [
+                    data.results[round].correct_answer,
+                    data.results[round].incorrect_answers[0],
+                    data.results[round].incorrect_answers[1],
+                    data.results[round].incorrect_answers[2],
+                ],
+                difficulty: data.results[round].difficulty
+            }
+            optionsData = [ dataObj.options[0], dataObj.options[1], dataObj.options[2], dataObj.options[3] ]
+        }
+        else {
+
+            dataObj = {
+                question: data.results[round].question,
+                options:  [
+                    data.results[round].correct_answer,
+                    data.results[round].incorrect_answers[0]
+                ],
+                difficulty: data.results[round].difficulty
+            }
+            optionsData = [ dataObj.options[0], dataObj.options[1] ]
         }
 
         setTimeout(() => {
@@ -116,7 +144,7 @@ async function getData() {
         }, 800);
         
 
-        let optionsData = [ dataObj.options[0], dataObj.options[1], dataObj.options[2], dataObj.options[3] ]
+       
         let shuffledOptions = shuffleArray(optionsData)
 
         setTimeout(() => {
@@ -194,7 +222,7 @@ function toggleButtons() {
 
 
 function gameEnd() {
-    nextBtn.classList.add('inactive')
+    document.querySelector('#next').classList.add('inactive')
     submitBtn.classList.add('inactive')
     scoreDiv.classList.add('highlighted')
     round = 0
