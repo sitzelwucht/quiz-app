@@ -10,3 +10,7 @@ With each correct response you get a point. The trivia is pulled from Open Trivi
 ## Installation
 
 Only express installaton is needed.
+
+## Links
+
+- [Deployment](https://sitzelwucht.github.io/quiz-app/src/)
