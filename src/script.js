@@ -19,19 +19,33 @@ document.querySelector('#ok-btn').addEventListener('click', () => {
         alert('Please select topic and question type')
         return
     }
+    if (round > 0) {
+        if (confirm('Restart game?')) {
+            startGame()
+        }
+        else return
+    }
+
+    startGame()
+})
+
+
+function startGame() {
     scoreDiv.innerHTML = ''
+    round = 0
     score = 0
     scoreDiv.classList.remove('highlighted', 'hidden')
     submitBtn.classList.remove('inactive')
   
     clearResponse()
     getData()
-})
+}
 
 document.querySelector('#send').addEventListener('click', () => {
     checkResponse()
 
 })
+
 document.querySelector('#next').addEventListener('click', () => {
     toggleButtons()
     clearResponse()
@@ -46,10 +60,10 @@ function getUrl() {
     const type = '&type='
     let qType = ''
 
-    if (round === 0) {
+    // if (round === 0) {
        mode = document.querySelector('#topics').value
        questionType = document.querySelector('#type').value
-    }
+    //}
     
     // determine question type
     if (questionType === 'boolean')
